@@ -1,0 +1,99 @@
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="height: 90vh"
+>
+  <div class="card shadow-lg p-4" style="max-width: 700px; width: 100%">
+    <h2 class="text-center mb-4">Update Employee</h2>
+
+    <form #employeeForm="ngForm">
+      <div class="row form-group">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="updateemployee.name"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Phone No</label>
+          <input
+            type="text"
+            class="form-control"
+            name="phoneno"
+            [(ngModel)]="updateemployee.phoneno"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Department</label>
+          <input
+            type="text"
+            class="form-control"
+            name="departmentit"
+            [(ngModel)]="updateemployee.departmentit"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Status</label>
+          <select
+            class="form-control"
+            name="status"
+            [(ngModel)]="updateemployee.status"
+          >
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Created By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="createdby"
+            [(ngModel)]="updateemployee.createdby"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Updated By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="updatedby"
+            [(ngModel)]="updateemployee.updatedby"
+            required
+          />
+        </div>
+      </div>
+
+      <input
+        type="hidden"
+        name="updateddtm"
+        [(ngModel)]="updateemployee.updateddtm"
+      />
+
+      <div class="d-flex justify-content-center">
+        <button
+          type="submit"
+          class="btn btn-primary mt-3 px-5"
+          (click)="updateEmployee()"
+        >
+          Update Employee
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

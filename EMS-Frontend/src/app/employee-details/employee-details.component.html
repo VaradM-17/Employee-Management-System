@@ -1,0 +1,70 @@
+<div class="container mt-5 text-center">
+    <h1 class="mb-4">Employee Details</h1>
+  
+    <!-- Sorting and Searching -->
+    <div class="d-flex justify-content-center align-items-center mb-4">
+      <label for="sortBy" class="fw-bold me-2">Sort By:</label>
+      <select id="sortBy" class="form-select w-auto me-4" (change)="sortData($event)">
+        <option value="">Select</option>
+        <option value="name">Name</option>
+        <option value="id">Id</option>
+      </select>
+  
+      <input
+        type="text"
+        class="form-control w-25 me-2"
+        placeholder="Search..."
+        [(ngModel)]="searchKeyword"
+      />
+      <button class="btn btn-primary" (click)="searchData()">Search</button>
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table w-75 mx-auto shadow-lg rounded">
+        <thead style="background-color: #4CAF50; color: white;">
+          <tr>
+            <th class="p-3 text-uppercase">Id</th>
+            <th class="p-3 text-uppercase">Name</th>
+            <th class="p-3 text-uppercase">Phone No</th>
+            <th class="p-3 text-uppercase">Department</th>
+            <th class="p-3 text-uppercase">Status</th>
+            <th class="p-3 text-uppercase">Created By</th>
+            <th class="p-3 text-uppercase">Updated By</th>
+            <th colspan="2" class="p-3 text-uppercase">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let i of filteredEmployees" 
+            class="border-bottom" 
+            style="transition: background-color 0.3s;">
+            <td class="p-3 fw-bold text-primary">{{ i.id }}</td>
+            <td class="p-3">{{ i.name }}</td>
+            <td class="p-3">{{ i.phoneno }}</td>
+            <td class="p-3">{{ i.departmentit }}</td>
+            <td class="p-3">{{ i.status }}</td>
+            <td class="p-3">{{ i.createdby }}</td>
+            <td class="p-3">{{ i.updatedby }}</td>
+            <td>
+              <button 
+                class="btn btn-primary px-3 py-2" 
+                [routerLink]="['/updatedata', i.id]">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button 
+                class="btn btn-danger px-3 py-2" 
+                (click)="deleteHandler(i.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Add Employee Button -->
+    <button class="btn btn-success mt-4 px-4 py-2" (click)="insertData()">Add Employee</button>
+  </div>
+  
