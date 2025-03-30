@@ -11,9 +11,7 @@ public class Employee {
     private String phoneno;
     private String departmentit;
     private String status;
-    private String createddtm;
     private String createdby;
-    private String updateddtm;
     private String updatedby;
 
     private int cid;
@@ -22,112 +20,87 @@ public class Employee {
         super();
     }
 
-    public Employee(int id, String name, String phoneno, String departmentit, String status, String createddtm,
-                    String createdby, String updateddtm, String updatedby, int cid) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.phoneno = phoneno;
-        this.departmentit = departmentit;
-        this.status = status;
-        this.createddtm = createddtm;
-        this.createdby = createdby;
-        this.updateddtm = updateddtm;
-        this.updatedby = updatedby;
-        this.cid = cid;
-    }
+	public Employee(int id, String name, String phoneno, String departmentit, String status, String createdby,
+			String updatedby, int cid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phoneno = phoneno;
+		this.departmentit = departmentit;
+		this.status = status;
+		this.createdby = createdby;
+		this.updatedby = updatedby;
+		this.cid = cid;
+	}
 
-    @PrePersist
-    public void prePersist() {
-        if (this.cid == 0) {
-            this.cid = this.id + 1;
-        }
-    }
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getPhoneno() {
+		return phoneno;
+	}
 
-    public String getPhoneno() {
-        return phoneno;
-    }
+	public void setPhoneno(String phoneno) {
+		this.phoneno = phoneno;
+	}
 
-    public void setPhoneno(String phoneno) {
-        this.phoneno = phoneno;
-    }
+	public String getDepartmentit() {
+		return departmentit;
+	}
 
-    public String getDepartmentit() {
-        return departmentit;
-    }
+	public void setDepartmentit(String departmentit) {
+		this.departmentit = departmentit;
+	}
 
-    public void setDepartmentit(String departmentit) {
-        this.departmentit = departmentit;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public String getCreatedby() {
+		return createdby;
+	}
 
-    public String getCreateddtm() {
-        return createddtm;
-    }
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
 
-    public void setCreateddtm(String createddtm) {
-        this.createddtm = createddtm;
-    }
+	public String getUpdatedby() {
+		return updatedby;
+	}
 
-    public String getCreatedby() {
-        return createdby;
-    }
+	public void setUpdatedby(String updatedby) {
+		this.updatedby = updatedby;
+	}
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
-    }
+	public int getCid() {
+		return cid;
+	}
 
-    public String getUpdateddtm() {
-        return updateddtm;
-    }
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
 
-    public void setUpdateddtm(String updateddtm) {
-        this.updateddtm = updateddtm;
-    }
-
-    public String getUpdatedby() {
-        return updatedby;
-    }
-
-    public void setUpdatedby(String updatedby) {
-        this.updatedby = updatedby;
-    }
-
-    public int getCid() {
-        return cid;
-    }
-
-    public void setCid(int cid) {
-        this.cid = cid;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", phoneno=" + phoneno + ", departmentit=" + departmentit
-                + ", status=" + status + ", createddtm=" + createddtm + ", createdby=" + createdby + ", updateddtm="
-                + updateddtm + ", updatedby=" + updatedby + ", cid=" + cid + "]";
-    }
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", phoneno=" + phoneno + ", departmentit=" + departmentit
+				+ ", status=" + status + ", createdby=" + createdby + ", updatedby=" + updatedby + ", cid=" + cid + "]";
+	}   
+    
 }
