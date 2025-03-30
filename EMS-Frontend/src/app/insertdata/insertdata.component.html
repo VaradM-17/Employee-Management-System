@@ -5,28 +5,34 @@
   <div class="card shadow-lg p-4" style="max-width: 700px; width: 100%">
     <h2 class="text-center mb-4">Insert Employee</h2>
 
-    <form #employeeForm="ngForm" (ngSubmit)="submitHandler()">
+    <form [formGroup]="employeeForm" (ngSubmit)="submitHandler()">
       <div class="row form-group">
         <div class="col-md-6 mb-3">
           <label class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            [(ngModel)]="employee.name"
-            required
-          />
+          <input type="text" class="form-control" formControlName="name" />
+          <small
+            class="text-danger"
+            *ngIf="
+              employeeForm.get('name')?.invalid &&
+              employeeForm.get('name')?.touched
+            "
+          >
+            Name is required (Min: 3 chars)
+          </small>
         </div>
 
         <div class="col-md-6 mb-3">
           <label class="form-label">Phone No</label>
-          <input
-            type="text"
-            class="form-control"
-            name="phoneno"
-            [(ngModel)]="employee.phoneno"
-            required
-          />
+          <input type="text" class="form-control" formControlName="phoneno" />
+          <small
+            class="text-danger"
+            *ngIf="
+              employeeForm.get('phoneno')?.invalid &&
+              employeeForm.get('phoneno')?.touched
+            "
+          >
+            Enter a valid 10-digit phone number
+          </small>
         </div>
       </div>
 
@@ -36,57 +42,34 @@
           <input
             type="text"
             class="form-control"
-            name="departmentit"
-            [(ngModel)]="employee.departmentit"
-            required
+            formControlName="departmentit"
           />
+          <small
+            class="text-danger"
+            *ngIf="
+              employeeForm.get('departmentit')?.invalid &&
+              employeeForm.get('departmentit')?.touched
+            "
+          >
+            Department is required
+          </small>
         </div>
 
         <div class="col-md-6 mb-3">
           <label class="form-label">Status</label>
-          <select
-            class="form-control"
-            name="status"
-            [(ngModel)]="employee.status"
-          >
+          <select class="form-control" formControlName="status">
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Created By</label>
-          <input
-            type="text"
-            class="form-control"
-            name="createdby"
-            [(ngModel)]="employee.createdby"
-            required
-          />
-        </div>
-
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Updated By</label>
-          <input
-            type="text"
-            class="form-control"
-            name="updatedby"
-            [(ngModel)]="employee.updatedby"
-            required
-          />
-        </div>
-      </div>
-
-      <input
-        type="hidden"
-        name="updateddtm"
-        [(ngModel)]="employee.updateddtm"
-      />
-
       <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary mt-3 px-5">
+        <button
+          type="submit"
+          class="btn btn-primary mt-3 px-5"
+          [disabled]="employeeForm.invalid"
+        >
           Insert Employee
         </button>
       </div>

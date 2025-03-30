@@ -1,69 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeServiceService } from '../employee-service.service';
 
-export
 @Component({
   selector: 'app-updatedata',
   templateUrl: './updatedata.component.html',
   styleUrls: ['./updatedata.component.css'],
 })
-class UpdatedataComponent {
-  employee: any = {
-    id: '',
-    name: '',
-    phoneno: '',
-    departmentit: '',
-    status: '',
-    createdby: '',
-    updatedby: '',
-  };
-
+export class UpdatedataComponent implements OnInit {
+  updateForm: FormGroup;
   newid: any;
-  updateemployee: any;
 
   constructor(
+    private fb: FormBuilder,
     private service: EmployeeServiceService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.updateForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phoneno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      departmentit: ['', Validators.required],
+      status: [''],
+      createdby: ['', Validators.required],
+      updatedby: ['', Validators.required],
+      updateddtm: [new Date().toISOString()],
+    });
+  }
 
   ngOnInit() {
     this.newid = this.activatedRoute.snapshot.paramMap.get('id');
-    this.updateemployee = {
-      id: '',
-      name: '',
-      phoneno: '',
-      departmentit: '',
-      status: '',
-      createdby: '',
-      updatedby: '',
-    };
-
-    //fetch single first to see existing on page
     this.service.getEmployeeById(this.newid).subscribe({
       next: (response) => {
-        this.updateemployee = response;
+        this.updateForm.patchValue(response);
       },
-      error: (err) => {
-        console.error('Error fetching employee data:', err);
+      error: () => {
+        alert('Error fetching employee data');
       },
     });
   }
 
-  // after seeing update information and submit
   updateEmployee() {
-    //to update date ,time,month
-    this.updateemployee.updateddtm = new Date().toISOString();
+    if (this.updateForm.invalid) {
+      alert('Please fill all fields correctly.');
+      return;
+    }
 
-    //submitting updated data
-    this.service.updateEmployee(this.updateemployee).subscribe({
+    this.updateForm.value.updateddtm = new Date().toISOString();
+    this.service.updateEmployee(this.updateForm.value).subscribe({
       next: () => {
         alert('✅ Employee Data Updated Successfully!');
         this.router.navigate(['/employee-details']);
       },
-      error: (err) => {
-        alert('❌ Failed to update employee. Please try again.');
+      error: () => {
+        alert('❌ Failed to update employee.');
       },
     });
   }

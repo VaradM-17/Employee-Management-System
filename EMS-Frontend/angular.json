@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "EMS-Frontend": {
+    "ems-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "EMS-Frontend:build:production"
+              "browserTarget": "ems-frontend:build:production"
             },
             "development": {
-              "browserTarget": "EMS-Frontend:build:development"
+              "browserTarget": "ems-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "EMS-Frontend:build"
+            "browserTarget": "ems-frontend:build"
           }
         },
         "test": {
@@ -96,6 +96,6 @@
     }
   },
   "cli": {
-    "analytics": "9a297946-5994-450f-9796-7762fde6d959"
+    "analytics": "bce48c1b-77cd-46e5-952e-d9f094591ba4"
   }
 }

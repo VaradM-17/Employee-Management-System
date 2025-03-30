@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeServiceService } from '../employee-service.service';
 import { Router } from '@angular/router';
 
@@ -8,31 +9,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./insertdata.component.css'],
 })
 export class InsertdataComponent {
-  displayData() {
-    throw new Error('Method not implemented.');
-  }
-  employee = {
-    id: 0,
-    name: '',
-    phoneno: '',
-    departmentit: '',
-    status: 'Active',
-    createdby: '',
-    updatedby: '',
-    createddtm: new Date().toISOString(),
-    updateddtm: new Date().toISOString(),
-  };
+  employeeForm: FormGroup;
 
-  constructor(private service: EmployeeServiceService, private router: Router) {}
+  constructor(private fb: FormBuilder, private service: EmployeeServiceService, private router: Router) {
+    this.employeeForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phoneno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      departmentit: ['', Validators.required],
+      status: ['Active'],
+      createdby: ['', Validators.required],
+      updatedby: ['', Validators.required],
+      updateddtm: [new Date().toISOString()],
+    });
+  }
+
+  get f() {
+    return this.employeeForm.controls;
+  }
 
   submitHandler() {
-    this.service.insertEmployee(this.employee).subscribe({
-      next: (response) => {
+    if (this.employeeForm.invalid) {
+      alert('Please fill all fields correctly.');
+      return;
+    }
+
+    this.service.insertEmployee(this.employeeForm.value).subscribe({
+      next: () => {
         alert('Employee data inserted successfully!');
-        this.employee = response;
         this.router.navigate(['/employee-details']);
       },
-      error: (error) => {
+      error: () => {
         alert('Failed to insert employee data. Please try again.');
       },
     });
