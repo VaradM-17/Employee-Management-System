@@ -17,7 +17,7 @@
               employeeForm.get('name')?.touched
             "
           >
-            Name is required (Min: 3 chars)
+            Name is required (Min: 3 chars, only letters allowed)
           </small>
         </div>
 
@@ -64,12 +64,24 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Created By</label>
+          <input type="text" class="form-control" formControlName="createdby" />
+          <small
+            class="text-danger"
+            *ngIf="
+              employeeForm.get('createdby')?.invalid &&
+              employeeForm.get('createdby')?.touched
+            "
+          >
+            Created By is required
+          </small>
+        </div>
+      </div>
+
       <div class="d-flex justify-content-center">
-        <button
-          type="submit"
-          class="btn btn-primary mt-3 px-5"
-          [disabled]="employeeForm.invalid"
-        >
+        <button type="submit" class="btn btn-primary mt-3 px-5">
           Insert Employee
         </button>
       </div>

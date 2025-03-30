@@ -13,9 +13,9 @@ export class EmployeeDetailsComponent {
     private router: Router
   ) {}
 
-  employee: any[] = []; 
-  filteredEmployees: any[] = []; 
-  searchKeyword: string = ''; 
+  employee: any[] = [];
+  filteredEmployees: any[] = [];
+  searchKeyword: string = '';
 
   ngOnInit() {
     this.getEmployees();
@@ -26,7 +26,7 @@ export class EmployeeDetailsComponent {
     this.service.getEmployee().subscribe({
       next: (response) => {
         this.employee = response;
-        this.filteredEmployees = [...this.employee]; 
+        this.filteredEmployees = [...this.employee];
       },
       error: (error) => {
         console.log(error);
@@ -60,17 +60,19 @@ export class EmployeeDetailsComponent {
 
   // Search employees
   searchData() {
-    if (this.searchKeyword.trim() === '') {
+    const keyword = this.searchKeyword.trim().toLowerCase();
+  
+    if (!keyword) {
       this.filteredEmployees = [...this.employee]; 
-    } else {
-      const keyword = this.searchKeyword.toLowerCase();
-      this.filteredEmployees = this.employee.filter((emp) =>
-        Object.values(emp).some((value) =>
-          String(value).toLowerCase().includes(keyword)
-        )
-      );
+      return;
     }
+  
+    this.filteredEmployees = this.employee.filter(emp => 
+      emp.id.toString().toLowerCase() === keyword || 
+      emp.name.toLowerCase().includes(keyword) 
+    );
   }
+  
 
   // Sort employees
   sortData(event: any) {
@@ -78,11 +80,13 @@ export class EmployeeDetailsComponent {
     if (sortBy) {
       this.filteredEmployees.sort((a: any, b: any) => {
         if (sortBy === 'id') {
-          return a.id - b.id; 
+          return a.id - b.id;
         }
-        return a[sortBy].toString().toLowerCase().localeCompare(b[sortBy].toString().toLowerCase()); // String sorting
+        return a[sortBy]
+          .toString()
+          .toLowerCase()
+          .localeCompare(b[sortBy].toString().toLowerCase()); 
       });
     }
   }
-  
 }

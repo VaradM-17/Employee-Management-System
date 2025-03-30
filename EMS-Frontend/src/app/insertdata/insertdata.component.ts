@@ -11,15 +11,24 @@ import { Router } from '@angular/router';
 export class InsertdataComponent {
   employeeForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: EmployeeServiceService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private service: EmployeeServiceService,
+    private router: Router
+  ) {
     this.employeeForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z ]+$'),
+        ],
+      ],
       phoneno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       departmentit: ['', Validators.required],
-      status: ['Active'],
+      status: ['', Validators.required],
       createdby: ['', Validators.required],
-      updatedby: ['', Validators.required],
-      updateddtm: [new Date().toISOString()],
     });
   }
 
